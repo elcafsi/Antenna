@@ -1,0 +1,22 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import mpl_toolkits.mplot3d.axes3d as axes3d
+pi=np.pi
+Zair=377
+theta,phi= np.linspace(-pi,pi,30),np.linspace(0,2*pi,30)
+THETA,PHI=np.meshgrid(theta,phi)
+num=np.cos(pi/2*np.cos(PHI))/np.sin(PHI)
+Etheta=Zair/2*pi*num
+Hphi=Etheta/Zair
+R = Etheta+Hphi
+X = R * np.sin(PHI) * np.cos(THETA)
+Y = R * np.sin(PHI) * np.sin(THETA)
+Z =  R * np.cos(PHI)
+
+fig = plt.figure()
+ax = fig.add_subplot(1,1,1, projection='3d')
+plot = ax.plot_surface(
+    X, Y, Z, rstride=1, cstride=1, cmap=plt.get_cmap('jet'),
+    linewidth=0, antialiased=False, alpha=0.5)
+
+plt.show()
