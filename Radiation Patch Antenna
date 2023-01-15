@@ -1,0 +1,23 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import mpl_toolkits.mplot3d.axes3d as axes3d
+pi=np.pi
+theta,phi= np.linspace(-pi,pi,300),np.linspace(0,2*pi,300)
+THETA,PHI=np.meshgrid(theta,phi)
+num1 = (1.5*pi*np.sin(THETA)*np.sin(PHI))/2
+num2=np.cos((pi/2)*np.sin(THETA)*np.cos(PHI))
+ETHETA= (np.sin(num1)/num1)
+EPHI=-ETHETA*np.cos(THETA)
+EH = np.cos(PHI)*ETHETA-np.sin(PHI)*EPHI
+EV = np.sin(PHI)*ETHETA-np.cos(PHI)*EPHI
+R = EH+EV
+X = R * np.sin(PHI) * np.cos(THETA)
+Y = R * np.sin(PHI) * np.sin(THETA)
+Z = R * np.cos(PHI)
+fig = plt.figure()
+ax = fig.add_subplot(1,1,1, projection='3d')
+plot = ax.plot_surface(
+    np.rad2deg(X), np.rad2deg(Y), Z, rstride=1, cstride=1, cmap=plt.get_cmap('jet'),
+    linewidth=0, antialiased=False, alpha=0.5)
+
+plt.show()
